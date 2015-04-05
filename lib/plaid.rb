@@ -24,6 +24,13 @@ module Plaid
       @user.new(res,api_level)
     end
 
+    def user_with_token(token,api_level=nil)
+      @user = Plaid::User.new
+      @user.permissions = [api_level]
+      @user.access_token = token
+      @user
+    end
+
     # Builds an institution object and returns when the institution details exist
     def institution(id=nil)
       @institution = Plaid::Institution.new
