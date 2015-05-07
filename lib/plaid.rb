@@ -80,5 +80,13 @@ module Plaid
       res = Connection.get('categories', id)
       id.nil? ? Category.all(res) : Category.new(res)
     end
+
+    # API: public
+    # exchanges public_token with access_token
+    def exchange_token(public_token, api_levels=[], institution_type=nil)
+      payload = { public_token: public_token }
+      res = Connection.post('exchange_token', payload)
+      set_user(res['access_token'], api_levels, institution_type)
+    end
   end
 end
